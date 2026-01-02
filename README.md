@@ -12,8 +12,9 @@ A plataforma então:
 <br>
 ✔️ RecomendaDietasTreinosAtividades mentaisPlaylists personalizadasSugestões de produtividade.
 <br>
-✔️ Tudo salvo no Banco de DadosUsuáriosHábitos diáriosDados de humorAlimentaçãoTreinosIMC, pesoMúsicas e features do SpotifyLogs das recomendaçõesDashboards personalizados🧠:
+✔️ Tudo salvo no Banco de DadosUsuáriosHábitos diáriosDados de humorAlimentaçãoTreinosIMC, pesoMúsicas e features do SpotifyLogs das recomendaçõesDashboards personalizados🧠:<br>
 Este projeto [
+<br>
 ✔ Estuda Eng. de Software
 
 ✔ Curte análise de dados
