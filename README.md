@@ -27,8 +27,9 @@ Este projeto [
 
 ✔ Quer um projeto grande para LinkedIn
 
-✔ Quer algo que vire portfólio/legadoEsse projeto junta todos esses mundos em um só lugar.
+✔ Quer algo que vire portfólio/legadoEsse projeto junta todos esses mundos em um só lugar.<br>
 ]
+<br>
 <br>
 🏗️ Arquitetura do Projeto
 
