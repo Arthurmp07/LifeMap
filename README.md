@@ -3,7 +3,7 @@
 Projeto Pessoal LifeMap
 
 🌐 Projeto Sugerido: LifeMap – O Mapa Inteligente dos Seus Hábitos
-Um site completo, com backend + banco de dados + análise de dados + IA que cria um mapa inteligente da vida do usuário conectando:Saúde físicaAlimentaçãoPsicologia / humorMúsicas que ele escutaRotina de estudos e produtividadeDados de treino e IMCObjetivos pessoaisTudo isso apresentado com dashboards interativos, análise preditiva e recomendações personalizadas.💡 Resumo do ProjetoO LifeMap seria um site onde o usuário cadastra seus hábitos diariamente e conecta seu Spotify.
+Um site completo, com backend + banco de dados + análise de dados + IA que cria um mapa inteligente da vida do usuário conectando:Saúde físicaAlimentaçãoPsicologia / humorMúsicas que ele escutaRotina de estudos e produtividadeDados de treino e IMCObjetivos pessoaisTudo isso apresentado com dashboards interativos, análise preditiva e recomendações personalizadas.💡 Resumo do ProjetoO LifeMap seria um site onde o usuário cadastra seus hábitos diariamente e conecta seu Spotify.<br>
 A plataforma então:
 <br>
 ✔️ Analisa padrõesEx.:“Nos dias em que você dormiu < 6h, você ouviu músicas mais tristes (+23%) e teve menor produtividade.”“Em semanas com mais treinos, sua alimentação teve mais proteína e seu humor melhorou.”
