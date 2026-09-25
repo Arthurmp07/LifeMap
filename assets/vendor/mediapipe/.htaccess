@@ -1,0 +1,3 @@
+# Arquivos da biblioteca MediaPipe (Apache-2.0). Precisam do tipo correto para o navegador carregar o WebAssembly.
+AddType application/wasm .wasm
+AddType text/javascript .mjs
