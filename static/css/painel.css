@@ -1,0 +1,144 @@
+/* Reset básico */
+
+body,
+h1,
+h2,
+table,
+th,
+td,
+input,
+textarea,
+select,
+button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Estilo geral */
+
+body {
+    background-color: black;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #fffdfd;
+}
+
+h2 {
+    text-align: center;
+    color: #444;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin: 30px 0 20px;
+}
+
+
+/* Tabela de alunos e treinos */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+thead tr {
+    background-color: #B50909;
+    color: white;
+}
+
+thead th {
+    padding: 10px;
+    text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+tbody td {
+    padding: 8px;
+}
+
+tbody td a {
+    color: #B50909;
+    text-decoration: none;
+}
+
+tbody td a:hover {
+    text-decoration: underline;
+}
+
+
+/* Formulário para adicionar exercício */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input,
+#nome_exercicio,
+textarea,
+select,
+button {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #B50909;
+    outline: none;
+}
+
+button {
+    background-color: #B50909;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

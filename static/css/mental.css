@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    font-size: 26px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Jersey 10", serif;
+}
+
+.categorias-mentais {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.categoria {
+    width: 90%;
+    max-width: 800px;
+    padding: 15px;
+    color: white;
+    font-size: 1.2em;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.categoria p {
+    margin: 0;
+}
+
+.conteudo-expandido {
+    display: none;
+    margin-top: 10px;
+    color: white;
+    font-size: 0.9em;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: inherit;
+    /* Usa a mesma cor de fundo do card */
+}
+
+.categoria.expanded .conteudo-expandido {
+    display: block;
+}
+
+.descricao-mental {
+    background-color: #740606;
+    color: white;
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    /* Centraliza horizontalmente */
+}

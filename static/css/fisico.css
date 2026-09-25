@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    font-size: 26px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Jersey 10", serif;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Para que os cards possam quebrar em várias linhas, se necessário */
+    gap: 20px;
+    justify-content: center;
+    /* Centraliza os cards */
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Aumentei o gap entre os cards */
+    align-items: center;
+    /* Centraliza os cards na área disponível */
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    /* Centraliza verticalmente os itens dentro do card */
+    justify-content: flex-start;
+    /* Alinha os itens à esquerda */
+    width: 350px;
+    /* Largura fixa para todos os cards */
+    height: 150px;
+    /* Altura fixa para os cards */
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    /* Garante que o conteúdo não ultrapasse o card */
+    text-align: left;
+    /* Alinha o texto à esquerda */
+    transition: background-color 0.3s ease;
+    /* Transição suave para hover */
+}
+
+.menu-item .card-text,
+.menu-item .card-subtext {
+    position: relative;
+    z-index: 1;
+}
+
+.menu-item .card-subtext {
+    font-size: 30px !important;
+    position: relative;
+    left: -30px;
+}
+
+.menu-item a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    /* Centraliza a imagem e o texto */
+    height: 100%;
+    /* O link ocupa toda a área do card */
+    width: 100%;
+}
+
+.menu-item img {
+    width: 120px;
+    /* Tamanho maior para a imagem */
+    height: 120px;
+    /* Tamanho maior para a imagem */
+    margin-right: 20px;
+    /* Espaço entre a imagem e o texto */
+    object-fit: cover;
+    /* Garante que a imagem seja cortada corretamente sem distorcer */
+}
+
+.menu-item .card-text {
+    font-size: 24px;
+    font-weight: bold;
+    flex: 1;
+    /* O texto ocupa o restante do espaço */
+    position: relative;
+    left: 25px;
+}
+
+.menu-item .card-subtext {
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: normal;
+}
+
+.menu-item:hover {
+    opacity: 0.8;
+    /* Efeito ao passar o mouse sobre o card */
+}
+
+
+/* Cores de fundo para cada card */
+
+.imc {
+    background-color: #d32f2f;
+}
+
+.verificador {
+    background-color: #ef6c00;
+}
+
+.treino {
+    background-color: #ffb74d;
+}
+
+.avaliador {
+    background-color: #ffcc80;
+}
+
+
+/* Info Box */
+
+.info-box {
+    background-color: #f9a825;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    /* Largura da caixa de informações */
+}
+
+.info-box h3 {
+    margin: 0 0 10px;
+}
+
+.info-box ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}

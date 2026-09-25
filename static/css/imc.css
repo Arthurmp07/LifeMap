@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    font-size: 26px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Jersey 10", serif;
+}
+
+body {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    background-color: black;
+    font-size: 1.2rem;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 3rem;
+    gap: 3rem;
+}
+
+.input-section {
+    flex: 1;
+    max-width: 500px;
+}
+
+.input-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.input-section h3 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.input-section input[type="text"] {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    color: #333;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.resultado {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-top: 1.5rem;
+}
+
+.categoria {
+    font-size: 1.8rem;
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 350px;
+}
+
+.info-box {
+    background-color: #ff8c00;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.imc-tabela {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    padding: 1.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.imc-tabela h4 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #32cd32;
+    text-align: center;
+}
+
+.imc-tabela table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.imc-tabela th,
+.imc-tabela td {
+    padding: 1rem;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.imc-tabela th {
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: bold;
+}
+
+.imc-tabela td {
+    background-color: #e0e0e0;
+}
+
+.imc-tabela .baixo-peso {
+    background-color: #a8d5a2;
+}
+
+.imc-tabela .normal {
+    background-color: #9acd32;
+}
+
+.imc-tabela .sobrepeso {
+    background-color: #ffa500;
+}
+
+.imc-tabela .obesidade {
+    background-color: #ff6347;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação do Físico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!--INICIO DO CABEÇALHO-->>
+<header>
+    <div class="logo">
+       <a style='color:white;text-decoration:none;' href="index.php">
+          <h1>IA do Bem-estar</h1>
+       </a>
+    </div>
+    <!-- Substituímos a barra de pesquisa pelo botão de login -->
+    <div class="navegacao">
+        <div class="botao-de-login">
+            <ion-icon name="person-outline"></ion-icon>
+            <a href="register.php">FAÇA SEU LOGIN OU CADESTRE-SE</a>
+        </div>
+        <nav>
+            <a href="fisico.php">Fisico</a>
+            <a href="mental.php">Mental</a>
+            <a href="ingesta.php">Ingesta</a>
+        </nav>
+    </div>
+</header>
+
+  
+
+    <main>
+        <h1>Streaming de Avaliação do Físico</h1>
+        <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    </main>
+
+
+
+    <link rel="stylesheet" href="static/css/style.css">
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="https://github.com/Arthurmp07" target="blank">ARTHUR MELLO</a></li>
+                <li><a href="https://github.com/GiovanaRossi" target="blank">GIOVANA ROSSI</a></li>
+                <li><a href="https://github.com/CRUZ1807" target="blank">HENRIQUE CRUZ</a></li>
+                <li><a href="https://github.com/Johann-RR" target="blank">JOHANN DA ROSA</a></li>
+            </ul>
+        </nav>
+    
+    <section class="logosection">
+        <img src="img/LOGO IA.png" alt="">
+    </section>
+    </footer>
+
+</body>
+
+</html>

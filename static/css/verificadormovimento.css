@@ -1,0 +1,55 @@
+/* CSS - verificadormovimento.css */
+
+body {
+    margin: 0;
+    font-family: "Jersey 10", serif;
+    background-color: #121212;
+    /* Fundo escuro */
+    color: #fff;
+    /* Texto branco padrão */
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* Espaçamento entre as seções */
+    padding: 20px;
+    justify-content: center;
+    /* Centraliza as linhas na página */
+}
+
+section.exercicio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(25% - 20px);
+    /* 4 seções por linha */
+    background-color: #1e1e1e;
+    /* Cor de fundo da seção */
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+section.exercicio:hover {
+    transform: scale(1.05);
+    /* Efeito de destaque ao passar o mouse */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.7);
+}
+
+section.exercicio img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+section.exercicio h1 {
+    color: #fff;
+    /* Cor branca do texto */
+    font-size: 1.2em;
+    text-align: center;
+    margin: 0;
+}

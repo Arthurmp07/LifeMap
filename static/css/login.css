@@ -1,0 +1,75 @@
+/* Estilos gerais */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Container do formulário */
+
+.login-container {
+    background-color: #5D2A17;
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Título */
+
+.login-container h2 {
+    background-color: #C43D19;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+
+/* Labels */
+
+.login-container label {
+    color: #FFFFFF;
+    font-size: 14px;
+    margin-top: 15px;
+    display: block;
+}
+
+
+/* Campos de entrada */
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    width: 93.8%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    background-color: #7D2A17;
+    color: #FFFFFF;
+    border: none;
+    border-bottom: 1px solid #FFFFFF;
+    outline: none;
+}
+
+
+/* Ícone de senha */
+
+.password-field {
+    display: flex;
+    align-items: center;
+}
+
+.password-field img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
