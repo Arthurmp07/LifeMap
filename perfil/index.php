@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/bootstrap.php';
 
-exigir_login();
+exigir_papel('usuario');
 
 $usuario = usuario_atual();
 $erros = flash_get('perfil_erros') ?? [];
@@ -23,7 +23,6 @@ $v = $antigo ?? [
 $ultimoImc = ultimo_imc((int) $usuario['id']);
 $planos = planos_do_perfil();
 $avaliacoes = listar_avaliacoes((int) $usuario['id'], 2);
-$avaliacao = $avaliacoes[0] ?? null;
 
 $pageTitle = 'Meu perfil';
 $paginaAtiva = 'perfil';
@@ -100,49 +99,7 @@ require __DIR__ . '/../partials/header.php';
             <?php endif; ?>
         </section>
 
-        <section class="card avaliacao-perfil" aria-labelledby="titulo-avaliacao">
-            <?php if ($avaliacao):
-                $leitura = interpretar_avaliacao($avaliacao);
-                $quando = new DateTime($avaliacao['criado_em']);
-                ?>
-                <a class="avaliacao-perfil__foto" href="<?= url('fisico/avaliador.php') ?>#historico" title="Ver todas as avaliações">
-                    <img src="<?= e(url_da_foto_avaliacao($avaliacao['id'])) ?>" alt="Foto da avaliação física de <?= $quando->format('d/m/Y') ?>" loading="lazy">
-                </a>
-                <div class="avaliacao-perfil__info">
-                    <h2 id="titulo-avaliacao">Minha avaliação física</h2>
-                    <p class="nota">Feita em <?= $quando->format('d/m/Y \à\s H:i') ?>.</p>
-
-                    <ul class="medidas medidas--compactas">
-                        <?php foreach ($leitura['itens'] as $item): ?>
-                            <li class="medida">
-                                <div class="medida__topo">
-                                    <strong class="medida__titulo"><?= e($item['titulo']) ?></strong>
-                                    <span class="medida__valor"><?= e($item['valor']) ?></span>
-                                    <span class="selo selo--<?= $item['estado'] ?>"><?= e($item['rotulo']) ?></span>
-                                </div>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-
-                    <p class="resultado-avaliacao__resumo"><?= e($leitura['resumo']) ?></p>
-                    <?php if (isset($avaliacoes[1])): ?>
-                        <p class="nota"><?= e(frase_de_comparacao(comparar_avaliacoes($avaliacao, $avaliacoes[1]), (new DateTime($avaliacoes[1]['criado_em']))->format('d/m'))) ?></p>
-                    <?php endif; ?>
-                    <p class="nota"><?= e(AVALIACAO_AVISO) ?></p>
-
-                    <div class="avaliador__acoes">
-                        <a class="btn btn--primary" href="<?= url('fisico/avaliador.php') ?>">Nova avaliação</a>
-                        <a class="btn btn--ghost" href="<?= url('fisico/avaliador.php') ?>#historico">Histórico e comparação</a>
-                    </div>
-                </div>
-            <?php else: ?>
-                <div class="avaliacao-perfil__info">
-                    <h2 id="titulo-avaliacao">Minha avaliação física</h2>
-                    <p>Você ainda não fez nenhuma avaliação. Abra a câmera, tire uma foto de frente e a foto e o resultado ficam guardados aqui, no seu perfil.</p>
-                    <a class="btn btn--primary" href="<?= url('fisico/avaliador.php') ?>"><ion-icon name="videocam-outline"></ion-icon> Fazer minha avaliação</a>
-                </div>
-            <?php endif; ?>
-        </section>
+        <?php $modo = 'proprio'; require __DIR__ . '/../partials/avaliacao_resumo.php'; ?>
 
         <div class="perfil">
             <form class="card" action="<?= url('perfil/processar_perfil.php') ?>" method="POST">
@@ -239,6 +196,12 @@ require __DIR__ . '/../partials/header.php';
                         <p>Você ainda não salvou nenhum IMC.</p>
                         <a class="btn btn--primary btn--block" href="<?= url('fisico/imc.php') ?>">Calcular meu IMC</a>
                     <?php endif; ?>
+                </section>
+
+                <section class="card" aria-labelledby="titulo-seguranca">
+                    <h2 id="titulo-seguranca">Segurança</h2>
+                    <p>Troque a senha da sua conta quando quiser.</p>
+                    <a class="btn btn--ghost btn--block" href="<?= url('auth/alterar_senha.php') ?>">Alterar senha</a>
                 </section>
 
             </aside>

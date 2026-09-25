@@ -1,6 +1,13 @@
 <?php
 // Validações compartilhadas entre o cadastro e o perfil.
 
+/** Telefone brasileiro com DDD: 10 ou 11 dígitos (a máscara e os símbolos são ignorados). */
+function telefone_valido(string $telefone): bool
+{
+    $digitos = preg_replace('/\D/', '', $telefone);
+    return strlen($digitos) >= 10 && strlen($digitos) <= 11;
+}
+
 /** Devolve a lista de mensagens de erro (vazia se estiver tudo certo). */
 function validar_dados_pessoais(string $nome, string $genero, string $dataNascimento, string $telefone): array
 {
@@ -22,8 +29,7 @@ function validar_dados_pessoais(string $nome, string $genero, string $dataNascim
         $erros[] = 'Informe uma data de nascimento válida.';
     }
 
-    $digitos = preg_replace('/\D/', '', $telefone);
-    if (strlen($digitos) < 10 || strlen($digitos) > 11) {
+    if (!telefone_valido($telefone)) {
         $erros[] = 'Informe um telefone com DDD.';
     }
 

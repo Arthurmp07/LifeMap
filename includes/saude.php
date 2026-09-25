@@ -96,3 +96,27 @@ function ultimo_imc(int $usuarioId): ?array
     $stmt->execute([$usuarioId]);
     return $stmt->fetch() ?: null;
 }
+
+/**
+ * Registros de IMC do usuário, do mais antigo ao mais novo, no formato do gráfico:
+ * [{id, peso, altura, imc, data: "AAAA-MM-DDTHH:MM:SS"}, ...] (no máximo os $limite mais recentes).
+ */
+function historico_imc(int $usuarioId, int $limite = 60): array
+{
+    $stmt = db()->prepare(
+        'SELECT id, peso, altura, resultado_imc, criado_em
+           FROM imc WHERE usuario_id = ?
+          ORDER BY criado_em DESC, id DESC LIMIT ' . max(1, $limite)
+    );
+    $stmt->execute([$usuarioId]);
+
+    $registros = array_map(fn($r) => [
+        'id'     => (int) $r['id'],
+        'peso'   => round((float) $r['peso'], 1),
+        'altura' => round((float) $r['altura'], 2),
+        'imc'    => round((float) $r['resultado_imc'], 2),
+        'data'   => (new DateTime($r['criado_em']))->format('Y-m-d\TH:i:s'),
+    ], $stmt->fetchAll());
+
+    return array_reverse($registros);
+}

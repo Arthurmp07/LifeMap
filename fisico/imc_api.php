@@ -26,22 +26,7 @@ function erro(int $status, string $mensagem): never
 /** Registros do usuário, do mais antigo ao mais novo, prontos para o gráfico. */
 function listar_registros(int $usuarioId): array
 {
-    $stmt = db()->prepare(
-        'SELECT id, peso, altura, resultado_imc, criado_em
-           FROM imc WHERE usuario_id = ?
-          ORDER BY criado_em DESC, id DESC LIMIT ' . LIMITE_REGISTROS
-    );
-    $stmt->execute([$usuarioId]);
-
-    $registros = array_map(fn($r) => [
-        'id'     => (int) $r['id'],
-        'peso'   => round((float) $r['peso'], 1),
-        'altura' => round((float) $r['altura'], 2),
-        'imc'    => round((float) $r['resultado_imc'], 2),
-        'data'   => (new DateTime($r['criado_em']))->format('Y-m-d\TH:i:s'),
-    ], $stmt->fetchAll());
-
-    return array_reverse($registros);
+    return historico_imc($usuarioId, LIMITE_REGISTROS);
 }
 
 if (!usuario_logado()) {

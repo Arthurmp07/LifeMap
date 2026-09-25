@@ -23,5 +23,15 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="<?= asset('js/site.js') ?>"></script>
+<?php if (usuario_logado() && in_array(papel_da_sessao(), ['usuario', 'profissional'], true)): ?>
+    <script type="application/json" id="avisos-config"><?= json_encode([
+        'api'         => url('atendimento/api.php'),
+        'chamadaApi'  => url('atendimento/chamada_api.php'),
+        'chat'        => url('atendimento/chat.php'),
+        'aberto'      => (int) ($atendimentoAberto ?? 0),   // conversa aberta nesta página (a chamada dela é tratada lá)
+    ], JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP) ?></script>
+    <script src="<?= asset('js/toque.js') ?>"></script>
+    <script src="<?= asset('js/avisos.js') ?>"></script>
+<?php endif; ?>
 </body>
 </html>

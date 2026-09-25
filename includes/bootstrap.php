@@ -39,7 +39,16 @@ function url(string $caminho = ''): string
 /** URL de um arquivo em assets/: asset('css/style.css'). */
 function asset(string $caminho): string
 {
-    return url('assets/' . ltrim($caminho, '/'));
+    $caminho = ltrim($caminho, '/');
+    $url = url('assets/' . $caminho);
+
+    // CSS e JS levam a data do arquivo na URL: ao mudarem, o navegador baixa a versão nova
+    // em vez de reaproveitar a que já guardou (senão o HTML novo roda com JS antigo).
+    if (preg_match('#^(css|js)/#', $caminho) && ($versao = @filemtime(BASE_PATH . '/assets/' . $caminho))) {
+        $url .= '?v=' . $versao;
+    }
+
+    return $url;
 }
 
 /** Escapa texto para HTML. */
@@ -71,7 +80,11 @@ require_once __DIR__ . '/saude.php';
 require_once __DIR__ . '/validacao.php';
 require_once __DIR__ . '/csrf.php';
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/api.php';
+require_once __DIR__ . '/senha.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/planos.php';
 require_once __DIR__ . '/rotina.php';
 require_once __DIR__ . '/avaliacao.php';
+require_once __DIR__ . '/atendimento.php';
+require_once __DIR__ . '/ficha.php';

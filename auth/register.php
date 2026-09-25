@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/bootstrap.php';
 
 if (usuario_logado()) {
-    redirecionar(url(''));
+    redirecionar(inicio_do_papel(papel_da_sessao()));
 }
 
 $erros = flash_get('cadastro_erros') ?? [];

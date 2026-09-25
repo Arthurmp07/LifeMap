@@ -72,15 +72,18 @@ CREATE TABLE `treino` (
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
-  `genero` enum('feminino','masculino') NOT NULL,
-  `data_nascimento` date NOT NULL,
+  `genero` enum('feminino','masculino') DEFAULT NULL,
+  `data_nascimento` date DEFAULT NULL,
   `email` varchar(100) NOT NULL,
   `telefone` varchar(20) NOT NULL,
   `altura` decimal(3,2) DEFAULT NULL,
   `objetivo` enum('perder_peso','ganhar_peso','ganhar_musculo','manter_saude') DEFAULT NULL,
   `problema_saude` varchar(255) DEFAULT NULL,
   `senha` varchar(255) NOT NULL,
-  `cadastro_completo` tinyint(1) DEFAULT 0
+  `cadastro_completo` tinyint(1) DEFAULT 0,
+  `papel` enum('usuario','profissional','admin') NOT NULL DEFAULT 'usuario',
+  `ativo` tinyint(1) NOT NULL DEFAULT 1,
+  `trocar_senha` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -218,6 +221,87 @@ CREATE TABLE `avaliacoes_fisicas` (
   UNIQUE KEY `arquivo` (`arquivo`),
   KEY `usuario_data` (`usuario_id`,`criado_em`),
   CONSTRAINT `avaliacoes_fisicas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Estrutura para tabelas de perfis e atendimento (profissionais, atendimentos, mensagens, chamadas)
+-- Perfis: usuarios.papel (usuario, profissional, admin), usuarios.ativo e usuarios.trocar_senha (acima).
+--
+
+CREATE TABLE `profissionais` (
+  `usuario_id` int(11) NOT NULL,
+  `especialidade` varchar(80) NOT NULL,
+  `registro` varchar(40) NOT NULL,
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`usuario_id`),
+  CONSTRAINT `profissionais_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Um registro por par (profissional, usuário): o convite vira atendimento ativo quando o usuário
+-- aceita, e pode ser encerrado por qualquer um dos dois (ou pelo administrador).
+-- ficha_vista_em: última vez que o profissional abriu os dados do usuário (o usuário vê essa data).
+CREATE TABLE `atendimentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `profissional_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `status` enum('pendente','ativo','encerrado','recusado') NOT NULL DEFAULT 'pendente',
+  `convidado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  `respondido_em` datetime DEFAULT NULL,
+  `encerrado_em` datetime DEFAULT NULL,
+  `encerrado_por` int(11) DEFAULT NULL,
+  `ficha_vista_em` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `par` (`profissional_id`,`usuario_id`),
+  KEY `usuario_status` (`usuario_id`,`status`),
+  CONSTRAINT `atendimentos_ibfk_1` FOREIGN KEY (`profissional_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `atendimentos_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- tipo 'sistema' = avisos automáticos no chat (chamada perdida, duração da chamada...).
+CREATE TABLE `mensagens` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `atendimento_id` int(11) NOT NULL,
+  `remetente_id` int(11) NOT NULL,
+  `tipo` enum('texto','sistema') NOT NULL DEFAULT 'texto',
+  `texto` varchar(2000) NOT NULL,
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  `lida_em` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `conversa` (`atendimento_id`,`id`),
+  KEY `remetente_tempo` (`remetente_id`,`criado_em`),
+  CONSTRAINT `mensagens_ibfk_1` FOREIGN KEY (`atendimento_id`) REFERENCES `atendimentos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `mensagens_ibfk_2` FOREIGN KEY (`remetente_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Uma chamada por vez em cada atendimento. Nada de áudio/vídeo passa pelo servidor:
+-- ele só guarda os "sinais" (ofertas/respostas WebRTC e candidatos ICE) para os dois lados se acharem.
+CREATE TABLE `chamadas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `atendimento_id` int(11) NOT NULL,
+  `iniciador_id` int(11) NOT NULL,
+  `com_video` tinyint(1) NOT NULL DEFAULT 1,
+  `status` enum('tocando','em_andamento','encerrada','recusada','perdida','cancelada') NOT NULL DEFAULT 'tocando',
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  `atendida_em` datetime DEFAULT NULL,
+  `encerrada_em` datetime DEFAULT NULL,
+  `visto_iniciador_em` datetime DEFAULT NULL,
+  `visto_outro_em` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `atendimento_status` (`atendimento_id`,`status`),
+  CONSTRAINT `chamadas_ibfk_1` FOREIGN KEY (`atendimento_id`) REFERENCES `atendimentos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `chamadas_ibfk_2` FOREIGN KEY (`iniciador_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `sinais_chamada` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `chamada_id` int(11) NOT NULL,
+  `de_id` int(11) NOT NULL,
+  `tipo` enum('offer','answer','ice') NOT NULL,
+  `dados` text NOT NULL,
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `chamada_sinais` (`chamada_id`,`id`),
+  CONSTRAINT `sinais_chamada_ibfk_1` FOREIGN KEY (`chamada_id`) REFERENCES `chamadas` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 COMMIT;

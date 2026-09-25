@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/bootstrap.php';
 
-exigir_login();
+exigir_papel('usuario');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirecionar(url('perfil/'));

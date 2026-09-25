@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../includes/bootstrap.php';
 require_once __DIR__ . '/../includes/pdf_perfil.php';
 
-exigir_login();
+exigir_papel('usuario');
 
 $usuario = usuario_atual();
 $planos = planos_do_perfil();

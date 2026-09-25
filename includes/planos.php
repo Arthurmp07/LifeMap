@@ -113,17 +113,12 @@ function montar_plano(string $tipo, string $genero, string $faixa, string $objet
 }
 
 /**
- * Escolhas guardadas no perfil do usuário logado (null se ninguém estiver logado).
+ * Escolhas guardadas no perfil de um usuário (linha de usuarios).
  * 'faltando' lista o que impede de montar o plano: 'objetivo' e/ou 'maioridade'
  * (os planos cobrem apenas maiores de 18 anos).
  */
-function escolhas_do_perfil(): ?array
+function escolhas_do_usuario(array $u): array
 {
-    $u = usuario_atual();
-    if (!$u) {
-        return null;
-    }
-
     $escolhas = [
         'genero'         => $u['genero'],
         'idade'          => faixa_etaria_de($u['data_nascimento']),
@@ -140,6 +135,13 @@ function escolhas_do_perfil(): ?array
     }
 
     return ['escolhas' => $escolhas, 'faltando' => $faltando];
+}
+
+/** Escolhas do perfil do usuário logado (null se ninguém estiver logado). */
+function escolhas_do_perfil(): ?array
+{
+    $u = usuario_atual();
+    return $u ? escolhas_do_usuario($u) : null;
 }
 
 /**
@@ -163,14 +165,14 @@ function plano_do_perfil(string $tipo): ?array
 }
 
 /**
- * Treino e dieta indicados pelo perfil do usuário logado.
+ * Treino e dieta indicados para um usuário (linha de usuarios).
  * Devolve ['treino' => plano|null, 'dieta' => plano|null, 'faltando' => [...]].
  */
-function planos_do_perfil(): array
+function planos_do_usuario(array $u): array
 {
-    $perfil = escolhas_do_perfil();
-    if ($perfil === null || $perfil['faltando']) {
-        return ['treino' => null, 'dieta' => null, 'faltando' => $perfil['faltando'] ?? []];
+    $perfil = escolhas_do_usuario($u);
+    if ($perfil['faltando']) {
+        return ['treino' => null, 'dieta' => null, 'faltando' => $perfil['faltando']];
     }
 
     $e = $perfil['escolhas'];
@@ -179,6 +181,13 @@ function planos_do_perfil(): array
         'dieta'    => montar_plano('dieta', $e['genero'], $e['idade'], $e['objetivo'], $e['problema_saude']),
         'faltando' => [],
     ];
+}
+
+/** Treino e dieta indicados pelo perfil do usuário logado. */
+function planos_do_perfil(): array
+{
+    $u = usuario_atual();
+    return $u ? planos_do_usuario($u) : ['treino' => null, 'dieta' => null, 'faltando' => []];
 }
 
 /** Valores do perfil para pré-preencher os formulários dos geradores (só o que estiver preenchido). */
